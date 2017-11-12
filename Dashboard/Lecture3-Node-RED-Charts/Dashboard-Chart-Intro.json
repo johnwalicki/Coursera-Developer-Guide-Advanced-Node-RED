@@ -1,0 +1,588 @@
+[
+    {
+        "id": "9781ef05.ee8f38",
+        "type": "tab",
+        "label": "Chart Intro",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "de322574.f34f68",
+        "type": "ui_chart",
+        "z": "9781ef05.ee8f38",
+        "name": "",
+        "group": "4b78ff21.a7a458",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "Single Line Plot",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "x": 600,
+        "y": 120,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "1dbd2cca.5f75e3",
+        "type": "function",
+        "z": "9781ef05.ee8f38",
+        "name": "Fill Single Chart Array",
+        "func": "var chart = [{\n    \"series\":[\"A\"],\n    \"data\":[[{\"x\":1504029632890,\"y\":5},\n             {\"x\":1504029633514,\"y\":8},\n             {\"x\":1504029634400,\"y\":3}]],\n    \"labels\":[\"\"]\n}];\nmsg.payload = chart;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 320,
+        "y": 120,
+        "wires": [
+            [
+                "de322574.f34f68",
+                "9a60424a.b51a9"
+            ]
+        ]
+    },
+    {
+        "id": "9a60424a.b51a9",
+        "type": "debug",
+        "z": "9781ef05.ee8f38",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 590,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "ea61a1dd.439ff",
+        "type": "comment",
+        "z": "9781ef05.ee8f38",
+        "name": "Sample Dashboard that plots various Chart types",
+        "info": "",
+        "x": 250,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "52c5b242.79d1ec",
+        "type": "ui_chart",
+        "z": "9781ef05.ee8f38",
+        "name": "",
+        "group": "4b78ff21.a7a458",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "Multiple Line Plots",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "x": 610,
+        "y": 220,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "5c600274.25b0ec",
+        "type": "function",
+        "z": "9781ef05.ee8f38",
+        "name": "Fill Multiple Line Chart Array",
+        "func": "var chart = [  {\"series\":[\"A\",\"B\",\"C\"],\n                \"data\":[\n                    [{\"x\":1504029632890,\"y\":5},\n                     {\"x\":1504029636001,\"y\":4},\n                     {\"x\":1504029638656,\"y\":2}],\n                    [{\"x\":1504029633514,\"y\":6},\n                     {\"x\":1504029636622,\"y\":7},\n                     {\"x\":1504029639539,\"y\":6}],\n                    [{\"x\":1504029634400,\"y\":7},\n                     {\"x\":1504029637959,\"y\":9},\n                     {\"x\":1504029640317,\"y\":7}]\n                ],\n                \"labels\":[\"\"]}];\nmsg.payload = chart;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 340,
+        "y": 220,
+        "wires": [
+            [
+                "52c5b242.79d1ec",
+                "3f84a4a4.49b724"
+            ]
+        ]
+    },
+    {
+        "id": "3f84a4a4.49b724",
+        "type": "debug",
+        "z": "9781ef05.ee8f38",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 590,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "36292836.481028",
+        "type": "ui_chart",
+        "z": "9781ef05.ee8f38",
+        "name": "",
+        "group": "c01ba52a.67bb",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "Vertical Bar Chart",
+        "chartType": "bar",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "x": 610,
+        "y": 540,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "6f43d8f4.8088b8",
+        "type": "inject",
+        "z": "9781ef05.ee8f38",
+        "name": "",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 130,
+        "y": 120,
+        "wires": [
+            [
+                "1dbd2cca.5f75e3"
+            ]
+        ]
+    },
+    {
+        "id": "6d542a0f.ce81ac",
+        "type": "inject",
+        "z": "9781ef05.ee8f38",
+        "name": "",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 130,
+        "y": 220,
+        "wires": [
+            [
+                "5c600274.25b0ec"
+            ]
+        ]
+    },
+    {
+        "id": "9503a2cc.3ad51",
+        "type": "inject",
+        "z": "9781ef05.ee8f38",
+        "name": "",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 130,
+        "y": 540,
+        "wires": [
+            [
+                "484a00a6.c4efc8"
+            ]
+        ]
+    },
+    {
+        "id": "484a00a6.c4efc8",
+        "type": "function",
+        "z": "9781ef05.ee8f38",
+        "name": "Fill Bar Chart Array",
+        "func": "var bar={};\nbar.labels = [\"Q1 16\",\"Q2 16\",\"Q3 16\",\"Q4 16\",\"Q1 17\",\"Q2 17\",\"Q3 17\"];\nbar.series = ['Sales A', 'Sales B', 'Sales C', 'Sales D'];\n// An array of 4 arrays of 7 elements\nbar.data = [\n    [65, 59, 80, 81, 56, 55, 40],\n    [28, 48, 40, 19, 86, 27, 90],\n    [38, 28, 20, 49, 45, 60, 20],\n    [58, 18, 40, 29, 15, 30, 60]\n  ];\nreturn {payload:[bar]};",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 310,
+        "y": 540,
+        "wires": [
+            [
+                "36292836.481028",
+                "deb3d985.497c68",
+                "e57aa881.bf64b"
+            ]
+        ]
+    },
+    {
+        "id": "deb3d985.497c68",
+        "type": "debug",
+        "z": "9781ef05.ee8f38",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 590,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "e57aa881.bf64b",
+        "type": "ui_chart",
+        "z": "9781ef05.ee8f38",
+        "name": "",
+        "group": "c01ba52a.67bb",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "Horizontal Bar Chart",
+        "chartType": "horizontalBar",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "x": 610,
+        "y": 580,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "3cd5b8af.71708",
+        "type": "ui_chart",
+        "z": "9781ef05.ee8f38",
+        "name": "",
+        "group": "a99459cd.12661",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "Pie Chart",
+        "chartType": "pie",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "x": 580,
+        "y": 320,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "6e18a34.2f216dc",
+        "type": "function",
+        "z": "9781ef05.ee8f38",
+        "name": "Fill Pie Chart Array",
+        "func": "var pie={};\npie.labels = [\"Geo1\",\"Geo2\",\"Geo3\",\"Geo4\",\"Geo5\"];\npie.series = ['Sales A', 'Sales B', 'Sales C', 'Sales D'];\npie.data =   [ [16, 27, 42, 65, 89] ];\n//return {payload:[pie]};\n\nvar pie={ \"labels\" : [\"Geo1\",\"Geo2\",\"Geo3\",\"Geo4\",\"Geo5\"],\n          \"series\" : ['Sales A', 'Sales B', 'Sales C', 'Sales D'],\n          \"data\"   : [ [16, 27, 42, 65, 89] ]\n        };\nmsg.payload = [pie];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 310,
+        "y": 320,
+        "wires": [
+            [
+                "3cd5b8af.71708",
+                "105175e5.8a2c4a",
+                "2f1d8f57.4b21d8",
+                "4320a082.d081c8",
+                "6400193d.43bab"
+            ]
+        ]
+    },
+    {
+        "id": "bbdd7914.8f73b8",
+        "type": "inject",
+        "z": "9781ef05.ee8f38",
+        "name": "",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 130,
+        "y": 320,
+        "wires": [
+            [
+                "6e18a34.2f216dc"
+            ]
+        ]
+    },
+    {
+        "id": "105175e5.8a2c4a",
+        "type": "debug",
+        "z": "9781ef05.ee8f38",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 590,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "2f1d8f57.4b21d8",
+        "type": "ui_chart",
+        "z": "9781ef05.ee8f38",
+        "name": "",
+        "group": "a99459cd.12661",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "Polar Area Chart",
+        "chartType": "polar-area",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "x": 600,
+        "y": 400,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "6400193d.43bab",
+        "type": "ui_chart",
+        "z": "9781ef05.ee8f38",
+        "name": "",
+        "group": "a99459cd.12661",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "label": "Radar Chart",
+        "chartType": "radar",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "x": 590,
+        "y": 440,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "4320a082.d081c8",
+        "type": "ui_chart",
+        "z": "9781ef05.ee8f38",
+        "name": "",
+        "group": "a99459cd.12661",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "Donut Chart",
+        "chartType": "pie",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": "40",
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "x": 590,
+        "y": 360,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "4b78ff21.a7a458",
+        "type": "ui_group",
+        "z": "",
+        "name": "Line Chart Examples",
+        "tab": "37891d11.65a522",
+        "disp": true,
+        "width": "8"
+    },
+    {
+        "id": "c01ba52a.67bb",
+        "type": "ui_group",
+        "z": "",
+        "name": "Bar Chart Examples",
+        "tab": "37891d11.65a522",
+        "order": 3,
+        "disp": true,
+        "width": "8"
+    },
+    {
+        "id": "a99459cd.12661",
+        "type": "ui_group",
+        "z": "",
+        "name": "Pie Chart Examples",
+        "tab": "37891d11.65a522",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "37891d11.65a522",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Chart Examples",
+        "icon": "dashboard",
+        "order": 1
+    }
+]

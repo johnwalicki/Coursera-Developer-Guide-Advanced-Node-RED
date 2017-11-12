@@ -1,0 +1,429 @@
+[
+    {
+        "id": "19be5ee2.ff2ff9",
+        "type": "tab",
+        "label": "Dashboard Intro",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "4b0e3185.ea0c68",
+        "type": "inject",
+        "z": "19be5ee2.ff2ff9",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "x": 110,
+        "y": 140,
+        "wires": [
+            [
+                "fae795ff.fd8b3"
+            ]
+        ]
+    },
+    {
+        "id": "3aa200f4.bb8e",
+        "type": "function",
+        "z": "19be5ee2.ff2ff9",
+        "name": "Random #s",
+        "func": "if( msg.payload === false ) {\n    return null;\n}\nmsg.payload = Math.round(Math.random()*100);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 430,
+        "y": 140,
+        "wires": [
+            [
+                "5177e366.baac1c"
+            ]
+        ]
+    },
+    {
+        "id": "b1c0c80b.60b228",
+        "type": "ui_chart",
+        "z": "19be5ee2.ff2ff9",
+        "name": "Chart",
+        "group": "309b41b2.77ed86",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "Random #",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "Querying Entropy",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "1",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": "",
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": true,
+        "x": 350,
+        "y": 240,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "e3c5862b.3bcbe8",
+        "type": "ui_gauge",
+        "z": "19be5ee2.ff2ff9",
+        "name": "Gauge",
+        "group": "309b41b2.77ed86",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 350,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "282f9f47.6b0978",
+        "type": "ui_slider",
+        "z": "19be5ee2.ff2ff9",
+        "name": "",
+        "label": "Slider",
+        "group": "309b41b2.77ed86",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "",
+        "min": 0,
+        "max": "100",
+        "step": "",
+        "x": 350,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5bc82e5b.f48f98",
+        "type": "ui_text",
+        "z": "19be5ee2.ff2ff9",
+        "group": "309b41b2.77ed86",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 350,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "fae795ff.fd8b3",
+        "type": "ui_switch",
+        "z": "19be5ee2.ff2ff9",
+        "name": "",
+        "label": "Switch",
+        "group": "f9661b60.25bf98",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 270,
+        "y": 140,
+        "wires": [
+            [
+                "3aa200f4.bb8e"
+            ]
+        ]
+    },
+    {
+        "id": "edcf26b.c6b3ed8",
+        "type": "cloudant out",
+        "z": "19be5ee2.ff2ff9",
+        "name": "",
+        "cloudant": "",
+        "database": "historicaldata0",
+        "service": "coursera-advanced-nodered-cloudantNoSQLDB",
+        "payonly": true,
+        "operation": "insert",
+        "x": 780,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "cc587759.3be438",
+        "type": "function",
+        "z": "19be5ee2.ff2ff9",
+        "name": "Time Series DB",
+        "func": "return {\n    payload: {\n        time: new Date().getTime(),\n        data: msg.payload\n    }\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 380,
+        "y": 520,
+        "wires": [
+            [
+                "c4ffeaa1.63d",
+                "be4c613.7e2012"
+            ]
+        ]
+    },
+    {
+        "id": "c4ffeaa1.63d",
+        "type": "function",
+        "z": "19be5ee2.ff2ff9",
+        "name": "Modulo",
+        "func": "var splitdata =  msg.payload.time % 3;\nif( splitdata === 0 ) {\n    return [msg, null, null];\n} else if( splitdata == 1 ) {\n    return [null, msg, null];\n} else if( splitdata == 2) {\n    return [null, null, msg];\n}\nreturn [null, null, null];",
+        "outputs": "3",
+        "noerr": 0,
+        "x": 560,
+        "y": 520,
+        "wires": [
+            [
+                "edcf26b.c6b3ed8"
+            ],
+            [
+                "ec93c76f.ccbc9"
+            ],
+            [
+                "ba6796e7.10f0d"
+            ]
+        ]
+    },
+    {
+        "id": "ec93c76f.ccbc9",
+        "type": "cloudant out",
+        "z": "19be5ee2.ff2ff9",
+        "name": "",
+        "cloudant": "",
+        "database": "historicaldata1",
+        "service": "coursera-advanced-nodered-cloudantNoSQLDB",
+        "payonly": true,
+        "operation": "insert",
+        "x": 780,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "ba6796e7.10f0d",
+        "type": "cloudant out",
+        "z": "19be5ee2.ff2ff9",
+        "name": "",
+        "cloudant": "",
+        "database": "historicaldata2",
+        "service": "coursera-advanced-nodered-cloudantNoSQLDB",
+        "payonly": true,
+        "operation": "insert",
+        "x": 780,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "be4c613.7e2012",
+        "type": "cloudant out",
+        "z": "19be5ee2.ff2ff9",
+        "name": "",
+        "cloudant": "",
+        "database": "historicaldata",
+        "service": "coursera-advanced-nodered-cloudantNoSQLDB",
+        "payonly": true,
+        "operation": "insert",
+        "x": 580,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "b6eb769c.a5079",
+        "type": "ui_text",
+        "z": "19be5ee2.ff2ff9",
+        "group": "f9661b60.25bf98",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 270,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "3f75e974.626b46",
+        "type": "inject",
+        "z": "19be5ee2.ff2ff9",
+        "name": "Instructions",
+        "topic": "",
+        "payload": "Use the toggle switch to start / stop the generation of random numbers",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [
+                "b6eb769c.a5079"
+            ]
+        ]
+    },
+    {
+        "id": "d02570ff.b8e37",
+        "type": "ui_toast",
+        "z": "19be5ee2.ff2ff9",
+        "position": "top right",
+        "displayTime": "5",
+        "highlight": "",
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "topic": "",
+        "name": "",
+        "x": 790,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "6cfa6003.e8658",
+        "type": "switch",
+        "z": "19be5ee2.ff2ff9",
+        "name": "Warn on High Values",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "80",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 1,
+        "x": 400,
+        "y": 400,
+        "wires": [
+            [
+                "e79aba0f.8bfa98"
+            ]
+        ]
+    },
+    {
+        "id": "e79aba0f.8bfa98",
+        "type": "template",
+        "z": "19be5ee2.ff2ff9",
+        "name": "Alert Msg",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Alert : Critical Value Detected {{payload}}",
+        "output": "str",
+        "x": 600,
+        "y": 400,
+        "wires": [
+            [
+                "d02570ff.b8e37"
+            ]
+        ]
+    },
+    {
+        "id": "5177e366.baac1c",
+        "type": "link out",
+        "z": "19be5ee2.ff2ff9",
+        "name": "",
+        "links": [
+            "7f90fe78.29a6a"
+        ],
+        "x": 555,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "7f90fe78.29a6a",
+        "type": "link in",
+        "z": "19be5ee2.ff2ff9",
+        "name": "",
+        "links": [
+            "5177e366.baac1c"
+        ],
+        "x": 95,
+        "y": 360,
+        "wires": [
+            [
+                "b1c0c80b.60b228",
+                "e3c5862b.3bcbe8",
+                "282f9f47.6b0978",
+                "5bc82e5b.f48f98",
+                "6cfa6003.e8658",
+                "cc587759.3be438"
+            ]
+        ]
+    },
+    {
+        "id": "309b41b2.77ed86",
+        "type": "ui_group",
+        "z": "19be5ee2.ff2ff9",
+        "name": "Dashboard Controls",
+        "tab": "744ce3c9.d4c3fc",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "f9661b60.25bf98",
+        "type": "ui_group",
+        "z": "",
+        "name": "Start / Stop",
+        "tab": "744ce3c9.d4c3fc",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "744ce3c9.d4c3fc",
+        "type": "ui_tab",
+        "z": "19be5ee2.ff2ff9",
+        "name": "Introduction",
+        "icon": "dashboard",
+        "order": 2
+    }
+]

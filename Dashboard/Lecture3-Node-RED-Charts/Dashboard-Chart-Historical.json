@@ -1,0 +1,165 @@
+[
+    {
+        "id": "bbee03f2.5d15c",
+        "type": "tab",
+        "label": "Historical Chart",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "60a9bb2.7c76744",
+        "type": "debug",
+        "z": "bbee03f2.5d15c",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 910,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "b425187b.f4f928",
+        "type": "ui_chart",
+        "z": "bbee03f2.5d15c",
+        "name": "",
+        "group": "dfcb4ecc.ad5b48",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "A Chart of Random Data",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "5000",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "x": 950,
+        "y": 60,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "7687d18b.9f3958",
+        "type": "function",
+        "z": "bbee03f2.5d15c",
+        "name": "Create a Chart Array for Chart.js",
+        "func": "// This function reformats the timeseries data into an array that \n// Chart.js (See http://www.chartjs.org/ ) will plot\n// The node-red-dashboard Chart node uses Chart.js \n\n// The Array has this structure, inserting the first element as a template.\nvar ChartData = [ {\"series\":[\"Data\"],\n                   \"data\":[[{\"x\":msg.payload[0].time,\"y\":msg.payload[0].data}]],\n                   \"labels\":[\"Data\"]}];\n\n// Start at 1 because we've already added element 0 in the initial array definition\nfor( var i=1; i < msg.payload.length; i++ ) {\n    ChartData[0].data[0].push( { \"x\":msg.payload[i].time,\"y\":msg.payload[i].data } );\n}\n// Now we need to sort on the time so that we give the Chart node an array in time order\nChartData[0].data[0].sort(function sortNumber(a,b) { return a.x - b.x; });\n\nmsg.payload = ChartData;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 630,
+        "y": 60,
+        "wires": [
+            [
+                "b425187b.f4f928",
+                "60a9bb2.7c76744"
+            ]
+        ]
+    },
+    {
+        "id": "3a6c7023.a11ae",
+        "type": "cloudant in",
+        "z": "bbee03f2.5d15c",
+        "name": "",
+        "cloudant": "",
+        "database": "historicaldata",
+        "service": "coursera-advanced-nodered-cloudantNoSQLDB",
+        "search": "_all_",
+        "design": "",
+        "index": "",
+        "x": 360,
+        "y": 60,
+        "wires": [
+            [
+                "2ce9238f.6eec24",
+                "7687d18b.9f3958"
+            ]
+        ]
+    },
+    {
+        "id": "2ce9238f.6eec24",
+        "type": "debug",
+        "z": "bbee03f2.5d15c",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 570,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "3adf71ec.51bea6",
+        "type": "ui_button",
+        "z": "bbee03f2.5d15c",
+        "name": "",
+        "group": "dca2d7d4.d33f98",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Random Data",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 120,
+        "y": 60,
+        "wires": [
+            [
+                "3a6c7023.a11ae"
+            ]
+        ]
+    },
+    {
+        "id": "dfcb4ecc.ad5b48",
+        "type": "ui_group",
+        "z": "",
+        "name": "Historical Data",
+        "tab": "ce519f65.146028",
+        "order": 1,
+        "disp": true,
+        "width": "18"
+    },
+    {
+        "id": "dca2d7d4.d33f98",
+        "type": "ui_group",
+        "z": "",
+        "name": "Chart Controls",
+        "tab": "ce519f65.146028",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "ce519f65.146028",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Historical Data",
+        "icon": "dashboard",
+        "order": 3
+    }
+]

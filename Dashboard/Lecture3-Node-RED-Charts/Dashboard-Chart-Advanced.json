@@ -1,0 +1,635 @@
+[
+    {
+        "id": "2da00948.a80b3e",
+        "type": "tab",
+        "label": "Advanced Historical Chart",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "3877a7c.cbc1cd8",
+        "type": "debug",
+        "z": "2da00948.a80b3e",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 1250,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "3ea4bea1.273f02",
+        "type": "ui_chart",
+        "z": "2da00948.a80b3e",
+        "name": "",
+        "group": "accfc4c.c4a8438",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "A Chart of Random DataSets",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "5000",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "x": 1300,
+        "y": 260,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "75923f47.dd13b8",
+        "type": "function",
+        "z": "2da00948.a80b3e",
+        "name": "Create a Chart Array for Chart.js",
+        "func": "var starttime = flow.get(\"StartTime\");\nvar endtime   = flow.get(\"EndTime\");\nvar PlotSeries0   = flow.get(\"PlotSeries0\");\nvar PlotSeries1   = flow.get(\"PlotSeries1\"); // Switch can be True / False\nvar PlotSeries2   = flow.get(\"PlotSeries2\");\nvar Series0Data   = flow.get(\"Series0Data\");\nvar Series1Data   = flow.get(\"Series1Data\");\nvar Series2Data   = flow.get(\"Series2Data\");\n\n// Example Chart Data\n// [{\"series\":[\"A\",\"B\",\"C\"],\"data\":[[{\"x\":1504029632890,\"y\":5},{\"x\":1504029636001,\"y\":4}]],\"labels\":[\"\"]}]\n// The Array has this structure, inserting the first element as a template.\nvar ChartData = [  {\"series\":[\"Series0\",\"Series1\",\"Series2\"],\n                    \"data\":[\n                        [{\"x\":starttime,\"y\":0}],\n                        [{\"x\":starttime,\"y\":0}],\n                        [{\"x\":starttime,\"y\":0}]\n                    ],\n                    \"labels\":[\"Data 0\",\"Data 1\",\"Data 2\"]}];\n                    \n// Now that the json object is defined, remove the bogus first data {x,y} object.\n// This triggers an odd bug in node-red-dashboard chart however when data[0] array has zero elements.\nChartData[0].data[0].shift(); \nChartData[0].data[1].shift(); \nChartData[0].data[2].shift(); \n    \n    \nif( PlotSeries0 === true ) {\n    for( var i=0; i < Series0Data.length; i++ ) {\n        // Filter on the selected timestamp range\n        if( (Series0Data[i].time > starttime) && (Series0Data[i].time < endtime)) {\n            ChartData[0].data[0].push( { \"x\":Series0Data[i].time,\"y\":Series0Data[i].data } );\n        }\n    }\n    // Now we need to sort on the time so that we give the Chart node an array in time order\n    ChartData[0].data[0].sort(function sortNumber(a,b) { return a.x - b.x; });\n}\nif( PlotSeries1 === true ) {\n    for( var i=0; i < Series1Data.length; i++ ) {\n        // Filter on the selected timestamp range\n        if( (Series1Data[i].time > starttime) && (Series1Data[i].time < endtime)) {\n            ChartData[0].data[1].push( { \"x\":Series1Data[i].time,\"y\":Series1Data[i].data } );\n        }\n    }\n    // Now we need to sort on the time so that we give the Chart node an array in time order\n    ChartData[0].data[1].sort(function sortNumber(a,b) { return a.x - b.x; });\n}\nif( PlotSeries2 === true ) {\n    for( var i=0; i < Series2Data.length; i++ ) {\n        // Filter on the selected timestamp range\n        if( (Series2Data[i].time > starttime) && (Series2Data[i].time < endtime)) {\n            ChartData[0].data[2].push( { \"x\":Series2Data[i].time,\"y\":Series2Data[i].data } );\n        }\n    }\n    // Now we need to sort on the time so that we give the Chart node an array in time order\n    ChartData[0].data[2].sort(function sortNumber(a,b) { return a.x - b.x; });\n}\nmsg.payload = ChartData;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1000,
+        "y": 280,
+        "wires": [
+            [
+                "3ea4bea1.273f02",
+                "3877a7c.cbc1cd8"
+            ]
+        ]
+    },
+    {
+        "id": "e79b4a61.c10278",
+        "type": "cloudant in",
+        "z": "2da00948.a80b3e",
+        "name": "",
+        "cloudant": "",
+        "database": "historicaldata0",
+        "service": "coursera-advanced-nodered-cloudantNoSQLDB",
+        "search": "_all_",
+        "design": "",
+        "index": "",
+        "x": 520,
+        "y": 220,
+        "wires": [
+            [
+                "f7e3137d.e321d"
+            ]
+        ]
+    },
+    {
+        "id": "777369e5.b10768",
+        "type": "ui_date_picker",
+        "z": "2da00948.a80b3e",
+        "name": "",
+        "label": "Start Date",
+        "group": "79893d76.03a0dc",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "",
+        "x": 500,
+        "y": 80,
+        "wires": [
+            [
+                "e37273c3.4711f8"
+            ]
+        ]
+    },
+    {
+        "id": "4ca42419.06fa54",
+        "type": "ui_date_picker",
+        "z": "2da00948.a80b3e",
+        "name": "",
+        "label": "End Date",
+        "group": "79893d76.03a0dc",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "",
+        "x": 500,
+        "y": 120,
+        "wires": [
+            [
+                "207f73b.a5b1a8c"
+            ]
+        ]
+    },
+    {
+        "id": "784164e.50c171c",
+        "type": "comment",
+        "z": "2da00948.a80b3e",
+        "name": "Select Date Range",
+        "info": "",
+        "x": 310,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "becc10a8.6080e8",
+        "type": "ui_text",
+        "z": "2da00948.a80b3e",
+        "group": "79893d76.03a0dc",
+        "order": 4,
+        "width": "6",
+        "height": "2",
+        "name": "Blank text",
+        "label": "",
+        "format": "",
+        "layout": "row-spread",
+        "x": 500,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "90d40017.1ab34",
+        "type": "debug",
+        "z": "2da00948.a80b3e",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 910,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "1cd5274e.0b5181",
+        "type": "debug",
+        "z": "2da00948.a80b3e",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 910,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "9586e5b6.7d6408",
+        "type": "change",
+        "z": "2da00948.a80b3e",
+        "name": "Start Date - 11/01/2017",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1509580800000",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 290,
+        "y": 80,
+        "wires": [
+            [
+                "777369e5.b10768"
+            ]
+        ]
+    },
+    {
+        "id": "dd681895.de181",
+        "type": "change",
+        "z": "2da00948.a80b3e",
+        "name": "End Date - 11/07/2017",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1510099200000",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 290,
+        "y": 120,
+        "wires": [
+            [
+                "4ca42419.06fa54"
+            ]
+        ]
+    },
+    {
+        "id": "e37273c3.4711f8",
+        "type": "change",
+        "z": "2da00948.a80b3e",
+        "name": "Set Start Time Range",
+        "rules": [
+            {
+                "t": "set",
+                "p": "StartTime",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 700,
+        "y": 80,
+        "wires": [
+            [
+                "90d40017.1ab34"
+            ]
+        ]
+    },
+    {
+        "id": "207f73b.a5b1a8c",
+        "type": "change",
+        "z": "2da00948.a80b3e",
+        "name": "Set End Time Range",
+        "rules": [
+            {
+                "t": "set",
+                "p": "EndTime",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 700,
+        "y": 120,
+        "wires": [
+            [
+                "1cd5274e.0b5181"
+            ]
+        ]
+    },
+    {
+        "id": "3e4b0246.d4ea5e",
+        "type": "inject",
+        "z": "2da00948.a80b3e",
+        "name": "",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 90,
+        "y": 100,
+        "wires": [
+            [
+                "9586e5b6.7d6408",
+                "dd681895.de181"
+            ]
+        ]
+    },
+    {
+        "id": "d37bc5ad.816138",
+        "type": "cloudant in",
+        "z": "2da00948.a80b3e",
+        "name": "",
+        "cloudant": "",
+        "database": "historicaldata1",
+        "service": "coursera-advanced-nodered-cloudantNoSQLDB",
+        "search": "_all_",
+        "design": "",
+        "index": "",
+        "x": 520,
+        "y": 280,
+        "wires": [
+            [
+                "c2180ed1.a5dc88"
+            ]
+        ]
+    },
+    {
+        "id": "8ccb3b9b.72796",
+        "type": "cloudant in",
+        "z": "2da00948.a80b3e",
+        "name": "",
+        "cloudant": "",
+        "database": "historicaldata2",
+        "service": "coursera-advanced-nodered-cloudantNoSQLDB",
+        "search": "_all_",
+        "design": "",
+        "index": "",
+        "x": 520,
+        "y": 340,
+        "wires": [
+            [
+                "5dcd2013.7801b8"
+            ]
+        ]
+    },
+    {
+        "id": "5aabcf1b.6735a8",
+        "type": "ui_switch",
+        "z": "2da00948.a80b3e",
+        "name": "",
+        "label": "Random Data #0",
+        "group": "79893d76.03a0dc",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "Series0",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 110,
+        "y": 220,
+        "wires": [
+            [
+                "237bce55.43d4a2"
+            ]
+        ]
+    },
+    {
+        "id": "5c675908.786168",
+        "type": "ui_switch",
+        "z": "2da00948.a80b3e",
+        "name": "",
+        "label": "Random Data #1",
+        "group": "79893d76.03a0dc",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "Series1",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 110,
+        "y": 280,
+        "wires": [
+            [
+                "4a49d756.4dc0f"
+            ]
+        ]
+    },
+    {
+        "id": "72ac68c0.62e1e",
+        "type": "ui_switch",
+        "z": "2da00948.a80b3e",
+        "name": "",
+        "label": "Random Data #2",
+        "group": "79893d76.03a0dc",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 110,
+        "y": 340,
+        "wires": [
+            [
+                "ff0a1878.557288"
+            ]
+        ]
+    },
+    {
+        "id": "237bce55.43d4a2",
+        "type": "change",
+        "z": "2da00948.a80b3e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "PlotSeries0",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 310,
+        "y": 220,
+        "wires": [
+            [
+                "e79b4a61.c10278"
+            ]
+        ]
+    },
+    {
+        "id": "4a49d756.4dc0f",
+        "type": "change",
+        "z": "2da00948.a80b3e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "PlotSeries1",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 310,
+        "y": 280,
+        "wires": [
+            [
+                "d37bc5ad.816138"
+            ]
+        ]
+    },
+    {
+        "id": "ff0a1878.557288",
+        "type": "change",
+        "z": "2da00948.a80b3e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "PlotSeries2",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 310,
+        "y": 340,
+        "wires": [
+            [
+                "8ccb3b9b.72796"
+            ]
+        ]
+    },
+    {
+        "id": "f7e3137d.e321d",
+        "type": "change",
+        "z": "2da00948.a80b3e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "Series0Data",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 220,
+        "wires": [
+            [
+                "75923f47.dd13b8"
+            ]
+        ]
+    },
+    {
+        "id": "c2180ed1.a5dc88",
+        "type": "change",
+        "z": "2da00948.a80b3e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "Series1Data",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 280,
+        "wires": [
+            [
+                "75923f47.dd13b8"
+            ]
+        ]
+    },
+    {
+        "id": "5dcd2013.7801b8",
+        "type": "change",
+        "z": "2da00948.a80b3e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "Series2Data",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 340,
+        "wires": [
+            [
+                "75923f47.dd13b8"
+            ]
+        ]
+    },
+    {
+        "id": "accfc4c.c4a8438",
+        "type": "ui_group",
+        "z": "",
+        "name": "Historical Data",
+        "tab": "6a569670.96b548",
+        "order": 1,
+        "disp": true,
+        "width": "18"
+    },
+    {
+        "id": "79893d76.03a0dc",
+        "type": "ui_group",
+        "z": "",
+        "name": "Chart Controls",
+        "tab": "6a569670.96b548",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "6a569670.96b548",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Advanced Charts",
+        "icon": "dashboard",
+        "order": 4
+    }
+]
