@@ -11,7 +11,6 @@ Lecture 4 - Node-RED Dashboard Forms and Templates - *Resources*
 ## Screenshots of Lecture 4 Node-RED Forms and Templates 
 ![Node-RED Dashboad Form Example](screenshots/NRD-Forms-AssetReg.png?raw=true "Node-RED Dashboard Form Template Example")
 ![Node-RED Dashboad Form Example](screenshots/NRD-Forms-Flow.png?raw=true "Node-RED Dashboard Form Template Example")
-![Node-RED Dashboad Form Example](screenshots/NRD-Forms-AssetReg.png?raw=true "Node-RED Dashboard Form Template Example")
 ![Node-RED Dashboad Form Example](screenshots/NRD-Forms-AssetReg-Form.png?raw=true "Node-RED Dashboard Form Template Example")
 ![Node-RED Dashboad Form Example](screenshots/NRD-Forms-AssetReg-Button.png?raw=true "Node-RED Dashboard Form Template Example")
 ![Node-RED Dashboad Form Example](screenshots/NRD-Forms-AssetReg-Template.png?raw=true "Node-RED Dashboard Form Template Example")

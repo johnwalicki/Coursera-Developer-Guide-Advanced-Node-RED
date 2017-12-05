@@ -10,4 +10,4 @@ The Node-RED Dashboard chapter is split into four Lectures
 * Lecture 1 - [Node-RED Dashboard Introduction](Dashboard/Lecture1-Node-RED-Dashboard-Intro/README.md)
 * Lecture 2 - [Node-RED Dashboard Layout](Dashboard/Lecture2-Node-RED-Layout-Config/README.md)
 * Lecture 3 - [Node-RED Dashboard Charts](Dashboard/Lecture3-Node-RED-Charts/README.md)
-* Lecture 4 - [Node-RED Dashboard Forms and Templates](Dashboard/Lecture4-Node-RED-Dashboard-FormsTemplate/README.md)
+* Lecture 4 - [Node-RED Dashboard Forms and Templates](Dashboard/Lecture4-Node-RED-Forms-Templates/README.md)
