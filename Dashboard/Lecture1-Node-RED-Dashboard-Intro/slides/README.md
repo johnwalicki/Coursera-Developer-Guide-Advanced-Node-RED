@@ -1,5 +1,5 @@
 # Coursera - Developers Guide to Node-RED Lecture 1
-Lecture 1 - Introduction to Node-RED Dashboards Slides
+Lecture 1 - Introduction to Node-RED Dashboard Slides
 ![Node-RED Dashboard Intro Slide 1](nrdi-title.png?raw=true "Node-RED Dashboard Chart")
 ![Node-RED Dashboard Intro Slide 2](nrdi-agenda.png?raw=true "Node-RED Dashboard Chart")
 ![Node-RED Dashboard Intro Slide 3](nrdi-palette1.png?raw=true "Node-RED Dashboard Chart")
