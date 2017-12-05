@@ -1,0 +1,23 @@
+# Coursera-Developer-Guide-Advanced-Node-RED
+Coursera - Developers Guide to Advanced Node-RED
+Lecture 1 - Introduction to Node-RED Dashboards Slides
+![Node-RED Dashboard Intro Slide 1](nrdi-title.png?raw=true "Node-RED Dashboard Chart")
+![Node-RED Dashboard Intro Slide 2](nrdi-agenda.png?raw=true "Node-RED Dashboard Chart")
+![Node-RED Dashboard Intro Slide 3](nrdi-palette1.png?raw=true "Node-RED Dashboard Chart")
+![Node-RED Dashboard Intro Slide 4](nrdi-dashboard.png?raw=true "Node-RED Dashboard Chart")
+![Node-RED Dashboard Intro Slide 5](nrdi-dashtext.png?raw=true "Node-RED Dashboard Chart")
+![Node-RED Dashboard Intro Slide 6](nrdi-text.png?raw=true "Node-RED Dashboard Chart")
+![Node-RED Dashboard Intro Slide 7](nrdi-dashswitch.png?raw=true "Node-RED Dashboard Chart")
+![Node-RED Dashboard Intro Slide 8](nrdi-switch.png?raw=true "Node-RED Dashboard Chart")
+![Node-RED Dashboard Intro Slide 9](nrdi-dashchart.png?raw=true "Node-RED Dashboard Chart")
+![Node-RED Dashboard Intro Slide 10](nrdi-chart.png?raw=true "Node-RED Dashboard Chart")
+![Node-RED Dashboard Intro Slide 11](nrdi-dashgauge.png?raw=true "Node-RED Dashboard Chart")
+![Node-RED Dashboard Intro Slide 12](nrdi-gauge.png?raw=true "Node-RED Dashboard Chart")
+![Node-RED Dashboard Intro Slide 13](nrdi-dashslider.png?raw=true "Node-RED Dashboard Chart")
+![Node-RED Dashboard Intro Slide 14](nrdi-slider.png?raw=true "Node-RED Dashboard Chart")
+![Node-RED Dashboard Intro Slide 15](nrdi-dashnotify.png?raw=true "Node-RED Dashboard Chart")
+![Node-RED Dashboard Intro Slide 16](nrdi-notify.png?raw=true "Node-RED Dashboard Chart")
+![Node-RED Dashboard Intro Slide 17](nrdi-flow.png?raw=true "Node-RED Dashboard Chart")
+![Node-RED Dashboard Intro Slide 18](nrdi-dashboard.png?raw=true "Node-RED Dashboard Chart")
+![Node-RED Dashboard Intro Slide 19](nrdi-palette.png?raw=true "Node-RED Dashboard Chart")
+![Node-RED Dashboard Intro Slide 20](closing.png?raw=true "Node-RED Dashboard Chart")
