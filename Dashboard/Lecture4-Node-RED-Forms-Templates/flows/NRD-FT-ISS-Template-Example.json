@@ -1,0 +1,291 @@
+[
+    {
+        "id": "f46adcd0.a3fd6",
+        "type": "tab",
+        "label": "Space Station",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "58e10a37.fdb854",
+        "type": "inject",
+        "z": "f46adcd0.a3fd6",
+        "name": "Every 5 sec",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "x": 130,
+        "y": 180,
+        "wires": [
+            [
+                "fbfe51ef.c8f33"
+            ]
+        ]
+    },
+    {
+        "id": "ca6c89d0.35dc5",
+        "type": "http request",
+        "z": "f46adcd0.a3fd6",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "url": "http://api.open-notify.org/iss-now.json",
+        "tls": "",
+        "x": 610,
+        "y": 180,
+        "wires": [
+            [
+                "92d3a151.7e9a8",
+                "205dfcd6.e46eec"
+            ]
+        ]
+    },
+    {
+        "id": "92d3a151.7e9a8",
+        "type": "debug",
+        "z": "f46adcd0.a3fd6",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "false",
+        "x": 790,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "205dfcd6.e46eec",
+        "type": "function",
+        "z": "f46adcd0.a3fd6",
+        "name": "Extract ISS Location",
+        "func": "var iss_location = msg.payload.iss_position;\n\nmsg.payload = { \n        name : \"International Space Station\",\n        lat  : parseFloat(iss_location.latitude),\n        lon  : parseFloat(iss_location.longitude),\n        icon:\"uav\",\n        iconColor:'#900000',\n        command : { \"zoom\" : 5 }\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 820,
+        "y": 180,
+        "wires": [
+            [
+                "2585f620.3048ca",
+                "ec1b2e44.eb46b",
+                "837b3d01.4eb418"
+            ]
+        ]
+    },
+    {
+        "id": "2585f620.3048ca",
+        "type": "debug",
+        "z": "f46adcd0.a3fd6",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 1030,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "ec1b2e44.eb46b",
+        "type": "worldmap",
+        "z": "f46adcd0.a3fd6",
+        "name": "",
+        "lat": "",
+        "lon": "",
+        "zoom": "5",
+        "layer": "Esri Satellite",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "show",
+        "panit": "true",
+        "x": 1050,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "d67f427e.81297",
+        "type": "ui_template",
+        "z": "f46adcd0.a3fd6",
+        "group": "ec94d4cd.2fd47",
+        "name": "Embedded Map",
+        "order": 0,
+        "width": "20",
+        "height": "15",
+        "format": "<div ng-bind-html=\"msg.payload | trusted\"></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 780,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4efaeffb.81abf8",
+        "type": "template",
+        "z": "f46adcd0.a3fd6",
+        "name": "Add Map to Dashboard",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<iframe src={{{payload.url}}} height=750px width=1000px ></iframe>",
+        "x": 550,
+        "y": 100,
+        "wires": [
+            [
+                "d67f427e.81297"
+            ]
+        ]
+    },
+    {
+        "id": "b94ec401.977e68",
+        "type": "comment",
+        "z": "f46adcd0.a3fd6",
+        "name": "One time - Add Map to Dashboard",
+        "info": "",
+        "x": 180,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "6a74391e.73ba5",
+        "type": "inject",
+        "z": "f46adcd0.a3fd6",
+        "name": "Init WorldMap",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 130,
+        "y": 100,
+        "wires": [
+            [
+                "b7822e81.e33958"
+            ]
+        ]
+    },
+    {
+        "id": "b7822e81.e33958",
+        "type": "function",
+        "z": "f46adcd0.a3fd6",
+        "name": "Inject /worldmap",
+        "func": "msg.payload = {};\nmsg.payload.url = \"/worldmap\";\nmsg.payload.command = {};\n\nmsg.payload.command =   {\n                        layer:\"Esri Satellite\",\n                        lat:40.978679,\n                        lon:-74.1015797,\n                        zoom:5,\n                        map: { name: \"Esri Satellite\" }\n                        };\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 320,
+        "y": 100,
+        "wires": [
+            [
+                "4efaeffb.81abf8"
+            ]
+        ]
+    },
+    {
+        "id": "be6ebb31.73a5e",
+        "type": "comment",
+        "z": "f46adcd0.a3fd6",
+        "name": "Query the location of the International Space Station",
+        "info": "",
+        "x": 234.44444444444446,
+        "y": 144.44444444444443,
+        "wires": []
+    },
+    {
+        "id": "fbfe51ef.c8f33",
+        "type": "ui_switch",
+        "z": "f46adcd0.a3fd6",
+        "name": "",
+        "label": "switch",
+        "group": "126ac135.b186df",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 290,
+        "y": 180,
+        "wires": [
+            [
+                "5f1285cc.c4f7ec"
+            ]
+        ]
+    },
+    {
+        "id": "5f1285cc.c4f7ec",
+        "type": "switch",
+        "z": "f46adcd0.a3fd6",
+        "name": "Switch On",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 1,
+        "x": 440,
+        "y": 180,
+        "wires": [
+            [
+                "ca6c89d0.35dc5"
+            ]
+        ]
+    },
+    {
+        "id": "837b3d01.4eb418",
+        "type": "worldmap-tracks",
+        "z": "f46adcd0.a3fd6",
+        "depth": "20",
+        "name": "",
+        "x": 950,
+        "y": 120,
+        "wires": [
+            [
+                "ec1b2e44.eb46b"
+            ]
+        ]
+    },
+    {
+        "id": "ec94d4cd.2fd47",
+        "type": "ui_group",
+        "z": "f46adcd0.a3fd6",
+        "name": "Space Station",
+        "tab": "e5c442af.9d2358",
+        "order": 2,
+        "disp": true,
+        "width": "20"
+    },
+    {
+        "id": "126ac135.b186df",
+        "type": "ui_group",
+        "z": "",
+        "name": "Start/Stop",
+        "tab": "e5c442af.9d2358",
+        "order": 1,
+        "disp": true,
+        "width": "3"
+    },
+    {
+        "id": "e5c442af.9d2358",
+        "type": "ui_tab",
+        "z": "f46adcd0.a3fd6",
+        "name": "International Space Station Location",
+        "icon": "fa-space-shuttle",
+        "order": 10
+    }
+]
