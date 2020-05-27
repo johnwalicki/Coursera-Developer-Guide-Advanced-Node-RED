@@ -60,7 +60,7 @@
         "type": "function",
         "z": "f46adcd0.a3fd6",
         "name": "Extract ISS Location",
-        "func": "var iss_location = msg.payload.iss_position;\n\nmsg.payload = { \n        name : \"International Space Station\",\n        lat  : parseFloat(iss_location.latitude),\n        lon  : parseFloat(iss_location.longitude),\n        icon:\"uav\",\n        iconColor:'#900000',\n        command : { \"zoom\" : 5 }\n};\n\nreturn msg;",
+        "func": "var iss_location = msg.payload.iss_position;\n\nmsg.payload = { \n        name : \"International Space Station\",\n        lat  : parseFloat(iss_location.latitude),\n        lon  : parseFloat(iss_location.longitude),\n        icon:\"iss\",\n        iconColor:'#900000',\n        command : { \"zoom\" : 5 }\n};\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 820,
